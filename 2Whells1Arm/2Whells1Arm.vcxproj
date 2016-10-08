@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B29B2ABC-BFF3-43AC-9B57-C41669C28657}</ProjectGuid>
+    <ProjectGuid>{281661C9-2C0E-4493-A85E-7C17CC821EC8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My2013_AI_twoWheelsOneArm</RootNamespace>
+    <RootNamespace>My2Whells1Arm</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -47,12 +47,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;NON_MATLAB_PARSING;MAX_EXT_API_CONNECTIONS=255;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\V-REP3\V-REP_PRO_EDU\programming\remoteApi;C:\Program Files (x86)\V-REP3\V-REP_PRO_EDU\programming\include;C:\Program Files (x86)\V-REP3\V-REP_PRO_EDU\programming;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -62,12 +61,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -77,13 +76,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AI_twoWeelsOneArm\AI.h" />
-    <ClInclude Include="AI_twoWeelsOneArm\AlgoGen.h" />
-    <ClInclude Include="AI_twoWeelsOneArm\Robot.h" />
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AI_twoWeelsOneArm\AlgoGen.cpp" />
-    <ClCompile Include="AI_twoWeelsOneArm\main.cpp" />
+    <ClInclude Include="AlgoGen.h" />
+    <ClInclude Include="App.h" />
+    <ClInclude Include="FileManager.h" />
+    <ClInclude Include="Robot.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Vrep.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="2Whells1Arm.cpp" />
+    <ClCompile Include="AlgoGen.cpp" />
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="Robot.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vrep.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
