@@ -1,4 +1,4 @@
-#include "AI.h"
+#include "AlgoGen.h"
 
 
 void mainFrame(int clientID, simxInt& opmode, simxInt& wristHandle, simxInt& elbowHandle, simxInt& shoulderHandle, simxInt& robotHandle)

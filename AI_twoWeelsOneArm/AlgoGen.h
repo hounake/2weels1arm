@@ -1,6 +1,7 @@
 #pragma once
 
-#include "AI.h"
+//#include "AI.h"
+
 #include "Robot.h"
 
 #define QUOI_FAIRE 0
@@ -18,8 +19,12 @@ class AlgoGen {
 
 
 public:
-	AlgoGen();
-	~AlgoGen();
+	AlgoGen() {
+
+	}
+	~AlgoGen(){
+
+	}
 
 	int	start();
 	int handle();
