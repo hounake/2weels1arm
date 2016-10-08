@@ -11,7 +11,7 @@
  // ReplayRange -> replay [START_RANK: END_RANK] robot 
 #define LOGNAME "LOG_TEST"
 #define TOTAL_GENE 500
-#define 
+//#define 
 
 class AlgoGen {
 	std::vector<Robot>	Robots;
