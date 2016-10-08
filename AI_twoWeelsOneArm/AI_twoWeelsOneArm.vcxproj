@@ -115,11 +115,6 @@
     <ClCompile Include="..\..\toto\main.cpp" />
     <ClCompile Include="AlgoGen.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\toto\AI.h" />
-    <ClInclude Include="..\..\toto\AlgoGen.h" />
-    <ClInclude Include="..\..\toto\Robot.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

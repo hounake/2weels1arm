@@ -1,0 +1,38 @@
+./ai -g 500 -i 10000 -log toto
+/*
+    create an algoGen
+	- initialisation Random
+	- "-g" number total of generation
+	- "-i" number of individu per generation
+	- "toto" log file name. where the log files will be stored
+*/
+
+./ai -continue toto_123 -g 500
+
+./ai -replay tata -begin 10 -end 500
+
+./ai -replayBest tata_500 -rank 1
+
+
+
+	-------	FILE NAME --------
+  ROOT   =>    SEPARATOR    =>    NUMBER GENERATION
+(string)	   _		(int)
+	--------------------------
+
+
+Create => start AlgoGen from the begining:
+	- total number of generation
+	- size of a generation
+	- file name for saving the log (root)
+
+Reload => continue AlgoGen from a FILENAME (size is written in the file we load)
+	- total number of generation 
+	- file name to load (root + separator + numberGeneration)
+
+ReplayRank => replay the Xth best score robot
+	- file name to load (root + separator + numberGeneration)
+	- rank of the robot we want to show
+
+MakeCSV => group the civilisation's logs on an unique csv file
+	- file name (root)
