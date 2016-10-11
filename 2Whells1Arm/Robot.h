@@ -1,7 +1,10 @@
 #pragma once
 
 #include <utility>
-#include "App.h"
+
+extern "C" {
+#include "extApi.h"
+}
 
 class Robot
 {
@@ -23,12 +26,12 @@ public:
 	std::pair<simxInt, simxInt> &getElbow();
 	std::pair<simxInt, simxInt> &getShoulder();
 
-	void						setScore();
-	void						setDistance();
+	void						setScore(int);
+	void						setDistance(float);
 	void						select();
 	void						resetSelection();
-	void						setWrist();
-	void						setElbow();
-	void						setShoulder();
+	void						setWrist(std::pair<simxInt, simxInt> &);
+	void						setElbow(std::pair<simxInt, simxInt> &);
+	void						setShoulder(std::pair<simxInt, simxInt> &);
 };
 
