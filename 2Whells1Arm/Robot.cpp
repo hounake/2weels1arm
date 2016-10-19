@@ -10,32 +10,32 @@ Robot::~Robot()
 {
 }
 
-int							Robot::getScore()
+int							Robot::getScore() const noexcept
 {
 	return m_score;
 }
 
-float						Robot::getDistance()
+float						Robot::getDistance() const noexcept
 {
 	return m_distance;
 }
 
-bool						Robot::isSelected()
+bool						Robot::isSelected() const noexcept
 {
 	return m_selected;
 }
 
-std::pair<simxInt, simxInt> &Robot::getWrist()
+const std::pair<simxInt, simxInt> &Robot::getWrist() const noexcept
 {
 	return m_wrist;
 }
 
-std::pair<simxInt, simxInt> &Robot::getElbow()
+const std::pair<simxInt, simxInt> &Robot::getElbow() const noexcept
 {
 	return m_elbow;
 }
 
-std::pair<simxInt, simxInt> &Robot::getShoulder()
+const std::pair<simxInt, simxInt> &Robot::getShoulder() const noexcept
 {
 	return m_shoulder;
 }
@@ -60,17 +60,17 @@ void						Robot::resetSelection()
 	m_selected = false;
 }
 
-void						Robot::setWrist(std::pair<simxInt, simxInt> &newWrist)
+void						Robot::setWrist(const std::pair<simxInt, simxInt> &newWrist)
 {
 	m_wrist = newWrist;
 }
 
-void						Robot::setElbow(std::pair<simxInt, simxInt> &newElbow)
+void						Robot::setElbow(const std::pair<simxInt, simxInt> &newElbow)
 {
 	m_elbow = newElbow;
 }
 
-void						Robot::setShoulder(std::pair<simxInt, simxInt> &newShoulder)
+void						Robot::setShoulder(const std::pair<simxInt, simxInt> &newShoulder)
 {
 	m_shoulder = newShoulder;
 }
