@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "App.h"
 
+#include <string>
+#include <iostream>
 
 App::App()
 {
@@ -12,6 +14,14 @@ App::~App()
 }
 
 void App::init(){
+	try
+	{
+		m_vrepManager.init();
+	}
+	catch (const std::string & msg)
+	{
+		std::cerr << msg << std::endl;
+	}
 	m_fileManager.createDir();
 
 	//std::vector<Robot> totoVec;

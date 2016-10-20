@@ -19,19 +19,21 @@ public:
 	Robot();
 	~Robot();
 
-	int							getScore();
-	float						getDistance();
-	bool						isSelected();
-	std::pair<simxInt, simxInt> &getWrist();
-	std::pair<simxInt, simxInt> &getElbow();
-	std::pair<simxInt, simxInt> &getShoulder();
+	void randomise();
+
+	int							getScore() const noexcept { return m_score; }
+	float						getDistance() const noexcept { return m_distance; }
+	bool						isSelected() const noexcept { return m_selected; }
+	const std::pair<simxInt, simxInt> &getWrist() const noexcept { return m_wrist; }
+	const std::pair<simxInt, simxInt> &getElbow() const noexcept { return m_elbow; }
+	const std::pair<simxInt, simxInt> &getShoulder() const noexcept { return m_shoulder; }
 
 	void						setScore(int);
 	void						setDistance(float);
 	void						select();
 	void						resetSelection();
-	void						setWrist(std::pair<simxInt, simxInt> &);
-	void						setElbow(std::pair<simxInt, simxInt> &);
-	void						setShoulder(std::pair<simxInt, simxInt> &);
+	void						setWrist(const std::pair<simxInt, simxInt> &);
+	void						setElbow(const std::pair<simxInt, simxInt> &);
+	void						setShoulder(const std::pair<simxInt, simxInt> &);
 };
 
