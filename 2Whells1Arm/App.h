@@ -13,11 +13,11 @@ extern "C" {
 
 class App
 {
-	std::map<int, std::vector<Robot>> m_robots;
 	FileManager m_fileManager;
 	AlgoGen m_algoGen;
 	Vrep m_vrepManager;
 
+	std::map<int, std::vector<Robot>> m_robots;
 	int m_currentGen;
 	simxInt RoboHandle;
 

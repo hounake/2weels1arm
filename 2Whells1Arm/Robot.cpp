@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Robot.h"
+#include <random>
 
 Robot::Robot()
 	: m_score(0), m_distance(0.0), m_selected(false), m_wrist(std::pair<simxInt, simxInt>(0, 0)), m_elbow(std::pair<simxInt, simxInt>(0, 0)), m_shoulder(std::pair<simxInt, simxInt>(0, 0))
@@ -10,34 +11,18 @@ Robot::~Robot()
 {
 }
 
-int							Robot::getScore() const noexcept
-{
-	return m_score;
-}
+void Robot::randomise() {
+	static std::random_device rd;
+	static std::mt19937 randomEngine(rd());
+	static std::uniform_real_distribution<float> randX(-360.0f, 360.0f);
 
-float						Robot::getDistance() const noexcept
-{
-	return m_distance;
-}
+	m_wrist.first = randX(randomEngine);
+	m_elbow.first  = randX(randomEngine);
+	m_shoulder.first = randX(randomEngine);
 
-bool						Robot::isSelected() const noexcept
-{
-	return m_selected;
-}
-
-const std::pair<simxInt, simxInt> &Robot::getWrist() const noexcept
-{
-	return m_wrist;
-}
-
-const std::pair<simxInt, simxInt> &Robot::getElbow() const noexcept
-{
-	return m_elbow;
-}
-
-const std::pair<simxInt, simxInt> &Robot::getShoulder() const noexcept
-{
-	return m_shoulder;
+	m_wrist.second = randX(randomEngine);
+	m_elbow.second = randX(randomEngine);
+	m_shoulder.second = randX(randomEngine);
 }
 
 void						Robot::setScore(int newScore)
