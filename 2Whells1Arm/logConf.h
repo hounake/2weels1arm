@@ -20,6 +20,6 @@ public:
 	void setMaxGene(const int);
 	void setSizeGene(const int);
 	void setNbAction(const int);
-	std::ostream& LogConf::operator<<(std::ostream&, const LogConf&)
+	//std::ostream& LogConf::operator<<(std::ostream&, const LogConf&)
 	//std::istream operator>>(std::istream&, LogConf&);
 };

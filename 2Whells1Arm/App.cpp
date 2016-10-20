@@ -12,7 +12,17 @@ App::~App()
 }
 
 void App::init(){
+	m_fileManager.createDir();
 
+	//std::vector<Robot> totoVec;
+	//totoVec.push_back(Robot());
+	//std::map<int, std::vector<Robot>> totoMap;
+	//totoMap.emplace(42, totoVec);
+
+	//m_fileManager.createGeneLog(totoMap, 0);
+
+	auto gene = m_fileManager.initGeneFromFile(0);
+	m_fileManager.createGeneLog(gene, 0);//test by recreating file
 }
 
 void App::run(){

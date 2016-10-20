@@ -39,13 +39,13 @@ void LogConf::setNbAction(const int newNb)
 }
 
 
-std::ostream& LogConf::operator<<(std::ostream& os, const LogConf& obj)
-{
-	os << obj.getMaxGene() << std::endl
-		<< obj.getSizeGene() << std::endl
-		<< obj.getNbAction() << std::endl;
-	return os;
-}
+//std::ostream& LogConf::operator<<(std::ostream& os, const LogConf& obj)
+//{
+//	os << obj.getMaxGene() << std::endl
+//		<< obj.getSizeGene() << std::endl
+//		<< obj.getNbAction() << std::endl;
+//	return os;
+//}
 
 //std::istream& LogConf::operator>>(std::istream& is, LogConf& obj)
 //{
