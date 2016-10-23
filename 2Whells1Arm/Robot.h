@@ -24,13 +24,13 @@ public:
 
 	void randomise();
 
-	int							getScore() const noexcept { return m_score; }
-	float						getDistance() const noexcept { return m_distance; }
-	bool						isSelected() const noexcept { return m_selected; }
-	float						getProba() const noexcept { return m_proba; }
-	const std::pair<simxInt, simxInt> &getWrist() const noexcept { return m_wrist; }
-	const std::pair<simxInt, simxInt> &getElbow() const noexcept { return m_elbow; }
-	const std::pair<simxInt, simxInt> &getShoulder() const noexcept { return m_shoulder; }
+	int							getScore() const  { return m_score; }
+	float						getDistance() const  { return m_distance; }
+	bool						isSelected() const  { return m_selected; }
+	float						getProba() const  { return m_proba; }
+	const std::pair<simxInt, simxInt> &getWrist() const  { return m_wrist; }
+	const std::pair<simxInt, simxInt> &getElbow() const  { return m_elbow; }
+	const std::pair<simxInt, simxInt> &getShoulder() const  { return m_shoulder; }
 
 	void						setScore(int);
 	void						setDistance(float);
