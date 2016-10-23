@@ -11,6 +11,22 @@ Robot::~Robot()
 {
 }
 
+Robot::Robot(const Robot &obj)
+	: m_score(obj.m_score), m_distance(obj.m_distance), m_selected(obj.m_selected), m_wrist(obj.m_wrist), m_elbow(obj.m_elbow), m_shoulder(obj.m_shoulder)
+{
+}
+
+Robot& Robot::operator=(const Robot &obj)
+{
+	this->m_score = obj.m_score;
+	this->m_distance = obj.m_distance;
+	this->m_selected = obj.m_selected;
+	this->m_wrist = obj.m_wrist;
+	this->m_elbow = obj.m_elbow;
+	this->m_shoulder = obj.m_shoulder;
+	return (*this);
+}
+
 void Robot::randomise() {
 	static std::random_device rd;
 	static std::mt19937 randomEngine(rd());
@@ -43,6 +59,11 @@ void						Robot::select()
 void						Robot::resetSelection()
 {
 	m_selected = false;
+}
+
+void						Robot::setProba(float newProba)
+{
+	m_proba = newProba;
 }
 
 void						Robot::setWrist(const std::pair<simxInt, simxInt> &newWrist)
