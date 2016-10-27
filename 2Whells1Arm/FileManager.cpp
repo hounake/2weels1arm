@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "FileManager.h"
 #include <iostream>
-#include <boost/filesystem.hpp>
-#include<boost/tokenizer.hpp>
+#include <boost/tokenizer.hpp>
 
 using namespace std;
 using namespace boost;
@@ -50,7 +49,7 @@ void FileManager::createDir()
 void FileManager::createGeneLog(std::map<int, std::vector<Robot>>& robots, int nbGene)
 {
 	path file_path(_fileName);
-	file_path += "/" + _fileName + ".txt";
+	getFileGenePath(file_path, nbGene);
 	std::ofstream outfile(file_path.c_str());
 
 	//outfile << "on va manger des chips!" << std::endl;
@@ -81,25 +80,41 @@ typedef tokenizer<escaped_list_separator<char> > boost_tok;
 
 std::map<int, std::vector<Robot>> &		FileManager::initGeneFromFile(int nbGene)
 {
-	path file_path(_fileName);
-	file_path += "/" + _fileName + ".txt";//TODO nbGene in name
+	path file_path;
+	getFileGenePath(file_path, nbGene);
 	std::ifstream infile(file_path.c_str());
 
-	while (true)//TODO check inline empty
+	string s;//= "score,distance,selected,wrist,elbow,shoulder";
+	while (getline(infile, s))
 	{
-		string s;//= "score,distance,selected,wrist,elbow,shoulder";
-		infile >> s;
 		boost_tok tok(s);
+		vector<string> robot_datas;
 		for (boost_tok::iterator it = tok.begin(); it != tok.end(); ++it) {
 			cout << *it << "\t";
+			robot_datas.push_back(*it);
 		}
-
-		Robot robot;//TODO infos
-		vector<Robot> robot_friends;//TODO check if already robot with same score
-		robot_friends.push_back(robot);
-		_lastReadGene.emplace(42, robot_friends);//TODO score
-
-		break;
+		if (robot_datas.size() < 9) {
+			cout << "not enough datas to create a robot: " << s << "\t";
+			break;
+		}
+		else {
+			Robot robot;
+			int score = stoi(robot_datas[0]);
+			robot.setScore(score);
+			robot.setDistance(stof(robot_datas[1]));
+			if (robot_datas[2] == "1") {
+				robot.select();
+			} else {
+				robot.resetSelection();
+			}
+			robot.setWrist(pair<simxInt, simxInt>(stoi(robot_datas[3]), stoi(robot_datas[4])));
+			robot.setElbow(pair<simxInt, simxInt>(stoi(robot_datas[5]), stoi(robot_datas[6])));
+			robot.setShoulder(pair<simxInt, simxInt>(stoi(robot_datas[7]), stoi(robot_datas[8])));
+			
+			vector<Robot> robot_friends;//TODO check if already robot with same score
+			robot_friends.push_back(robot);
+			_lastReadGene.emplace(score, robot_friends);
+		}
 	}
 
 	infile.close();
@@ -107,6 +122,12 @@ std::map<int, std::vector<Robot>> &		FileManager::initGeneFromFile(int nbGene)
 	return _lastReadGene;
 }
 
+void FileManager::getFileGenePath(path & file_path, int nbGene)
+{
+	file_path = _fileName;
+	file_path += "/" + _fileName + "_" + to_string(nbGene) + ".csv";
+	std::ifstream infile(file_path.c_str());
+}
 
 
 

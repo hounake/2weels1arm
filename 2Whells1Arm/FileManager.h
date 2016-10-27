@@ -2,6 +2,7 @@
 
 #include <map>
 #include <vector>
+#include <boost/filesystem.hpp>
 #include "Robot.h"
 #include "LogConf.h"
 
@@ -24,5 +25,8 @@ public:
 	//void createCSV();
 
 	std::map<int, std::vector<Robot>> &		initGeneFromFile(int nbGene);
+
+private:
+	void	getFileGenePath(boost::filesystem::path & file_path, int nbGene);
 };
 
