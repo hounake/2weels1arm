@@ -66,6 +66,16 @@ void						Robot::setProba(float newProba)
 	m_proba = newProba;
 }
 
+void						Robot::setPosX(double newX)
+{
+	m_x = newX;
+}
+
+void						Robot::setPosY(double newY)
+{
+	m_y = newY;
+}
+
 void						Robot::setWrist(const std::pair<simxInt, simxInt> &newWrist)
 {
 	m_wrist = newWrist;
