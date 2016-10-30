@@ -35,6 +35,12 @@ public:
 	const std::pair<simxInt, simxInt> &getWrist() const  { return m_wrist; }
 	const std::pair<simxInt, simxInt> &getElbow() const  { return m_elbow; }
 	const std::pair<simxInt, simxInt> &getShoulder() const  { return m_shoulder; }
+	const simxInt&				getWristAmp() const { return m_wrist.first; }
+	const simxInt&				getWristRot() const { return m_wrist.second; }
+	const simxInt&				getElbowAmp() const { return m_elbow.first; }
+	const simxInt&				getElbowRot() const { return m_elbow.second; }
+	const simxInt&				getShoulderAmp() const { return m_shoulder.first; }
+	const simxInt&				getShoulderRot() const { return m_shoulder.second; }
 
 	void						setScore(int);
 	void						setDistance(float);
@@ -46,5 +52,11 @@ public:
 	void						setWrist(const std::pair<simxInt, simxInt> &);
 	void						setElbow(const std::pair<simxInt, simxInt> &);
 	void						setShoulder(const std::pair<simxInt, simxInt> &);
+	void						setWristAmp(const simxInt &);
+	void						setWristRot(const simxInt &);
+	void						setElbowAmp(const simxInt &);
+	void						setElbowRot(const simxInt &);
+	void						setShoulderAmp(const simxInt &);
+	void						setShoulderRot(const simxInt &);
 };
 

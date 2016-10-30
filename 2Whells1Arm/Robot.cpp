@@ -90,3 +90,33 @@ void						Robot::setShoulder(const std::pair<simxInt, simxInt> &newShoulder)
 {
 	m_shoulder = newShoulder;
 }
+
+void						Robot::setWristAmp(const simxInt &newElbowAmp)
+{
+	m_wrist.first = newElbowAmp;
+}
+
+void						Robot::setWristRot(const simxInt &newElbowRot)
+{
+	m_wrist.second = newElbowRot;
+}
+
+void						Robot::setElbowAmp(const simxInt &newElbowAmp)
+{
+	m_elbow.first = newElbowAmp;
+}
+
+void						Robot::setElbowRot(const simxInt &newElbowRot)
+{
+	m_elbow.second = newElbowRot;
+}
+
+void						Robot::setShoulderAmp(const simxInt &newShoulderAmp)
+{
+	m_shoulder.first = newShoulderAmp;
+}
+
+void						Robot::setShoulderRot(const simxInt &newShoulderRot)
+{
+	m_shoulder.second = newShoulderRot;
+}
