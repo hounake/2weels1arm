@@ -8,6 +8,7 @@
 
 class FileManager
 {
+private:
 	std::string _fileName;
 	LogConf	_conf;
 	std::map<int, std::vector<Robot>> _lastReadGene;
@@ -27,6 +28,7 @@ public:
 	std::map<int, std::vector<Robot>> &		initGeneFromFile(int nbGene);
 
 private:
+	bool	initRobotFromString(Robot& robot, std::string const& datas);
 	void	getFileGenePath(boost::filesystem::path & file_path, int nbGene);
 };
 

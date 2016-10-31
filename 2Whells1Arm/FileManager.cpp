@@ -53,14 +53,27 @@ void FileManager::createGeneLog(std::map<int, std::vector<Robot>>& robots, int n
 	std::ofstream outfile(file_path.c_str());
 
 	//outfile << "on va manger des chips!" << std::endl;
+	outfile << "Gene " << nbGene
+		<< "," << "score"
+		<< "," << "distance"
+		<< "," << "isSelected"
+		<< "," << "wrist"
+		<< "," << "wrist"
+		<< "," << "elbow"
+		<< "," << "elbow"
+		<< "," << "shoulder"
+		<< "," << "shoulder"
+		<< endl;
 
+	int id = 0;
 	for each (auto robotPair in robots)
 	{
 		//outfile << robotPair.first
 		//	<< endl;
 		for each (Robot robot in robotPair.second)
 		{
-			outfile << robot.getScore()
+			outfile << id++
+				<< "," << robot.getScore()
 				<< "," << robot.getDistance()
 				<< "," << robot.isSelected()
 				<< "," << robot.getWrist().first
@@ -85,41 +98,52 @@ std::map<int, std::vector<Robot>> &		FileManager::initGeneFromFile(int nbGene)
 	std::ifstream infile(file_path.c_str());
 
 	string s;//= "score,distance,selected,wrist,elbow,shoulder";
+	int totoScore = 0;//tmp, while we have a map instead of a vector
+	getline(infile, s);//skip first line with column titles
 	while (getline(infile, s))
 	{
-		boost_tok tok(s);
-		vector<string> robot_datas;
-		for (boost_tok::iterator it = tok.begin(); it != tok.end(); ++it) {
-			cout << *it << "\t";
-			robot_datas.push_back(*it);
-		}
-		if (robot_datas.size() < 9) {
-			cout << "not enough datas to create a robot: " << s << "\t";
+		Robot robot;
+		if (!initRobotFromString(robot, s))
 			break;
-		}
-		else {
-			Robot robot;
-			int score = stoi(robot_datas[0]);
-			robot.setScore(score);
-			robot.setDistance(stof(robot_datas[1]));
-			if (robot_datas[2] == "1") {
-				robot.select();
-			} else {
-				robot.resetSelection();
-			}
-			robot.setWrist(pair<simxInt, simxInt>(stoi(robot_datas[3]), stoi(robot_datas[4])));
-			robot.setElbow(pair<simxInt, simxInt>(stoi(robot_datas[5]), stoi(robot_datas[6])));
-			robot.setShoulder(pair<simxInt, simxInt>(stoi(robot_datas[7]), stoi(robot_datas[8])));
-			
-			vector<Robot> robot_friends;//TODO check if already robot with same score
-			robot_friends.push_back(robot);
-			_lastReadGene.emplace(score, robot_friends);
-		}
+		vector<Robot> robot_friends;//tmp, while we have a map instead of a vector
+		robot_friends.push_back(robot);
+		_lastReadGene.emplace(totoScore++, robot_friends);
+
 	}
 
 	infile.close();
 
 	return _lastReadGene;
+}
+
+bool	FileManager::initRobotFromString(Robot& robot, string const& datas)
+{
+	boost_tok tok(datas);
+	vector<string> robot_datas;
+	for (boost_tok::iterator it = tok.begin(); it != tok.end(); ++it) {
+		cout << *it << "\t";
+		robot_datas.push_back(*it);
+	}
+	if (robot_datas.size() < 10) {
+		cout << "not enough datas to create a robot: " << datas << "\t";
+		return false;
+	}
+	else {
+		Robot robot;
+		int score = stoi(robot_datas[1]);
+		robot.setScore(score);
+		robot.setDistance(stof(robot_datas[2]));
+		if (robot_datas[3] == "1") {
+			robot.select();
+		}
+		else {
+			robot.resetSelection();
+		}
+		robot.setWrist(pair<simxInt, simxInt>(stoi(robot_datas[4]), stoi(robot_datas[5])));
+		robot.setElbow(pair<simxInt, simxInt>(stoi(robot_datas[6]), stoi(robot_datas[7])));
+		robot.setShoulder(pair<simxInt, simxInt>(stoi(robot_datas[8]), stoi(robot_datas[9])));
+	}
+	return true;
 }
 
 void FileManager::getFileGenePath(path & file_path, int nbGene)
