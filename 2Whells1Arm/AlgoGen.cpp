@@ -88,29 +88,29 @@ void AlgoGen::mating()
 	if (sex == 0)
 	{
 		m_child = m_father;
-		if (heritage == 0)
-			m_child.setElbow(m_mother.getElbow());
-		else if (heritage == 1)
-			m_child.setShoulder(m_mother.getShoulder());
-		else
-			m_child.setWrist(m_mother.getWrist());
+		//if (heritage == 0)
+		//	m_child.setElbow(m_mother.getElbow());
+		//else if (heritage == 1)
+		//	m_child.setShoulder(m_mother.getShoulder());
+		//else
+		//	m_child.setWrist(m_mother.getWrist());
 
 	}
 	else if (sex == 1)
 	{
 		m_child = m_mother;
-		if (heritage == 0)
-			m_child.setElbow(m_father.getElbow());
-		else if (heritage == 1)
-			m_child.setShoulder(m_father.getShoulder());
-		else
-			m_child.setWrist(m_father.getWrist());
+		//if (heritage == 0)
+		//	m_child.setElbow(m_father.getElbow());
+		//else if (heritage == 1)
+		//	m_child.setShoulder(m_father.getShoulder());
+		//else
+		//	m_child.setWrist(m_father.getWrist());
 	}
 	else
 	{
-		m_child.setElbow(std::pair<simxFloat, simxFloat>(((m_mother.getElbow().first + m_mother.getElbow().first) / 2.0f), ((m_mother.getElbow().second + m_mother.getElbow().second) / 2.0f)));
-		m_child.setShoulder(std::pair<simxFloat, simxFloat>(((m_mother.getShoulder().first + m_mother.getShoulder().first) / 2.0f), ((m_mother.getShoulder().second + m_mother.getShoulder().second) / 2.0f)));
-		m_child.setWrist(std::pair<simxFloat, simxFloat>(((m_mother.getWrist().first + m_mother.getWrist().first) / 2.0f), ((m_mother.getWrist().second + m_mother.getWrist().second) / 2.0f)));
+		//m_child.setElbow(std::pair<simxFloat, simxFloat>(((m_mother.getElbow().first + m_mother.getElbow().first) / 2.0f), ((m_mother.getElbow().second + m_mother.getElbow().second) / 2.0f)));
+		//m_child.setShoulder(std::pair<simxFloat, simxFloat>(((m_mother.getShoulder().first + m_mother.getShoulder().first) / 2.0f), ((m_mother.getShoulder().second + m_mother.getShoulder().second) / 2.0f)));
+		//m_child.setWrist(std::pair<simxFloat, simxFloat>(((m_mother.getWrist().first + m_mother.getWrist().first) / 2.0f), ((m_mother.getWrist().second + m_mother.getWrist().second) / 2.0f)));
 	}
 	mutate();
 }
@@ -150,7 +150,7 @@ void AlgoGen::scoreSetting(std::vector<Robot> &robots)
 		if (rob.getDistance() > m_distance * 2)
 		{
 			rob.setScore(0);
-			rob.setProba(0.0f);
+			//rob.setProba(0.0f);
 		}
 		else
 		{

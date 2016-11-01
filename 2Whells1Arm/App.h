@@ -11,14 +11,16 @@ extern "C" {
 #include "extApi.h"
 }
 
+const int PPLPERGENERATION = 100;
+
 class App
 {
-	FileManager m_fileManager;
+//	FileManager m_fileManager;
 	AlgoGen m_algoGen;
-	//Vrep m_vrepManager;
+	Vrep m_vrepManager;
 
-	std::map<int, std::vector<Robot>> m_robots;
-	int m_currentGen;
+	std::vector<Robot*> m_robots;
+	int m_currentGen = 0;
 	simxInt RoboHandle;
 
 	void m_initFromNothing();
