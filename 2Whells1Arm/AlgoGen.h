@@ -17,6 +17,7 @@ private:
 	int			m_childNbr; // calculeted
 	int			m_generatonScore;  // cumil of all score for current generation
 	int			m_mutationRate; // like "5" for 5 in 100
+	int		m_heritageRate; // % of gen taken from the other parent
 
 	simxFloat	m_distance_x;
 	simxFloat	m_distance_y;
@@ -44,6 +45,8 @@ public:
 	void repopulate(std::vector<Robot> &robots);
 
 	void mutate();
+
+	void fuseGene(Robot &parent);
 
 	void getNewGene(std::vector<Robot> &robots); // insert
 };
