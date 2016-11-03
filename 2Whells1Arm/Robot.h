@@ -23,8 +23,9 @@ class Robot
 	int								m_repetition;
 	std::vector<std::vector<std::pair<simxInt, simxInt>>> m_cycle;
 
-	Robot();
+
 public:
+	Robot();
 	Robot(int);
 	Robot(simxFloat, simxFloat);
 	Robot(simxFloat _x, simxFloat _y, int _repetition);
@@ -40,8 +41,14 @@ public:
 	float							getProba() const { return m_proba; }
 	bool							isSelected() const { return m_selected; }
 	int								getRepetition() const { return m_repetition; }
-	std::vector<std::vector<std::pair<simxInt, simxInt>>> getCycle() const { return m_cycle; }
+	const std::vector<std::vector<std::pair<simxInt, simxInt>>> &getCycle() const { return m_cycle; }
 	int								getCycleLength() const { return m_cycle.size(); }
+	const std::pair<simxInt, simxInt>	&getStateCycle(unsigned int _i, unsigned int _j) const {
+		if (m_cycle.size() > _i && _j > 0 && _j < 3) {
+			return m_cycle[_i][_j];
+		}
+		return std::make_pair(0, 0);
+	};
 
 	// Setter
 	void							setX(simxFloat);

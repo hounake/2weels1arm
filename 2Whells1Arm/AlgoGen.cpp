@@ -12,8 +12,8 @@ AlgoGen::AlgoGen()
 	m_distance = 200;
 }
 
+//: m_populationSize(1000), m_elitismRate(0.1f), m_mutationRate(5), m_distance_x(10), m_distance_y(10), m_distance(200)
 AlgoGen::AlgoGen(int populationSize, float elitismRate, int mutationRate, simxFloat distance_x, simxFloat distance_y, simxFloat distance)
-	: m_populationSize(1000), m_elitismRate(0.1f), m_mutationRate(5), m_distance_x(10), m_distance_y(10), m_distance(200)
 {
 	m_populationSize = populationSize;
 	m_elitismRate = elitismRate;
@@ -52,7 +52,7 @@ void AlgoGen::selection(std::vector<Robot> &robots)
 		choiceCumul += rob.getScore() * 100.0f / m_generatonScore;
 		if (choiceCumul >= choiceRank + 0.0f)
 		{
-			rob.select();
+			rob.setSelect(true);
 			m_father = rob;
 			ptrFather = &rob;
 			fatherScore = m_father.getScore();
@@ -75,9 +75,36 @@ void AlgoGen::selection(std::vector<Robot> &robots)
 	}
 	/// or do it at the reseting of next selection
 	if (ptrFather)
-		ptrFather->resetSelection();
+		ptrFather->setSelect(false);
 	mating();
 	m_newRobots.push_back(new Robot(m_child));
+}
+
+
+void AlgoGen::fuseGene(Robot &parent)
+{
+	int myCycleSize = m_child.getCycleLength();
+	int otherCycleSize = parent.getCycleLength();
+	int toHerit = myCycleSize;
+	if (myCycleSize > otherCycleSize)
+		toHerit = otherCycleSize;
+	toHerit = toHerit * m_heritageRate / 100;
+	for (int i = 0; i < toHerit; i++)
+		for (int j = 0; j < 3; j++)
+			m_child.setStateCycle(i, j, parent.getStateCycle(i, j));
+}
+
+void AlgoGen::fuseGene()
+{
+	int myCycleSize = m_father.getCycleLength();
+	int otherCycleSize = m_mother.getCycleLength();
+	int toHerit = myCycleSize;
+	if (myCycleSize > otherCycleSize)
+		toHerit = otherCycleSize;
+	for (int i = 0; i < toHerit; i++)
+		for (int j = 0; j < 3; j++)
+			m_child.setStateCycle(i, j, std::pair<simxFloat, simxFloat>(((m_mother.getStateCycle(i, j).first + m_mother.getStateCycle(i, j).first) / 2.0f), ((m_mother.getStateCycle(i, j).second + m_mother.getStateCycle(i, j).second) / 2.0f)));
+
 }
 
 void AlgoGen::mating()
@@ -85,33 +112,20 @@ void AlgoGen::mating()
 	srand(time(NULL));
 	int sex = rand() % 3;
 	int heritage = rand() % 3;
+
 	if (sex == 0)
 	{
 		m_child = m_father;
-		if (heritage == 0)
-			m_child.setElbow(m_mother.getElbow());
-		else if (heritage == 1)
-			m_child.setShoulder(m_mother.getShoulder());
-		else
-			m_child.setWrist(m_mother.getWrist());
+		fuseGene(m_mother);
 
 	}
 	else if (sex == 1)
 	{
 		m_child = m_mother;
-		if (heritage == 0)
-			m_child.setElbow(m_father.getElbow());
-		else if (heritage == 1)
-			m_child.setShoulder(m_father.getShoulder());
-		else
-			m_child.setWrist(m_father.getWrist());
+		fuseGene(m_father);
 	}
 	else
-	{
-		m_child.setElbow(std::pair<simxFloat, simxFloat>(((m_mother.getElbow().first + m_mother.getElbow().first) / 2.0f), ((m_mother.getElbow().second + m_mother.getElbow().second) / 2.0f)));
-		m_child.setShoulder(std::pair<simxFloat, simxFloat>(((m_mother.getShoulder().first + m_mother.getShoulder().first) / 2.0f), ((m_mother.getShoulder().second + m_mother.getShoulder().second) / 2.0f)));
-		m_child.setWrist(std::pair<simxFloat, simxFloat>(((m_mother.getWrist().first + m_mother.getWrist().first) / 2.0f), ((m_mother.getWrist().second + m_mother.getWrist().second) / 2.0f)));
-	}
+		fuseGene();
 	mutate();
 }
 
@@ -123,7 +137,9 @@ void AlgoGen::mutate()
 	mutationRand = rand() % (100 / m_mutationRate);
 	if (mutationRand = 1)
 	{
-		m_child = Robot();
+		m_child = Robot(); // /!\ Robot Constructor needs a nb of cycle repetition /!\;
+		m_child.setRepetition(50);
+		m_child.randomise();
 		//do mutation
 	}
 }
@@ -146,7 +162,7 @@ void AlgoGen::scoreSetting(std::vector<Robot> &robots)
 {
 	for (auto &rob : robots)
 	{
-		rob.setDistance(pow(rob.getPosX() - m_distance_x, 2.0) + pow(rob.getPosY() - m_distance_y, 2.0));
+		rob.setDistance(pow(rob.getX() - m_distance_x, 2.0f) + pow(rob.getY() - m_distance_y, 2.0f));
 		if (rob.getDistance() > m_distance * 2)
 		{
 			rob.setScore(0);

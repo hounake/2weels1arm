@@ -2,6 +2,11 @@
 #include "Robot.h"
 #include <random>
 
+Robot::Robot()
+	: m_x(0), m_y(0), m_distance(0), m_score(0), m_proba(0), m_selected(false), m_repetition(0)
+{
+}
+
 Robot::Robot(int _repetition)
 	: m_x(0), m_y(0), m_distance(0), m_score(0), m_proba(0), m_selected(false), m_repetition(_repetition)
 {
@@ -72,7 +77,7 @@ void						Robot::setRepetition(int _repetition)
 
 bool						Robot::setStateCycle(unsigned int _state, unsigned int _motor, const std::pair<simxInt, simxInt> &_pair)
 {
-	if (m_cycle.size() > _state && _motor > 0 && _motor)
+	if (m_cycle.size() > _state && _motor > 0 && _motor < 3)
 	{
 		(m_cycle[_state])[_motor] = _pair;
 		return true;
@@ -89,7 +94,7 @@ void Robot::randomise() {
 	static std::random_device rd;
 	static std::mt19937 randomEngine(rd());
 	static std::uniform_real_distribution<float> randX(-360.0f, 360.0f);
-	static std::uniform_real_distribution<unsigned int> randSize(MIN_CYCLE, MAX_CYCLE);
+	static std::uniform_int_distribution<unsigned int> randSize(MIN_CYCLE, MAX_CYCLE);
 
 	std::vector<std::pair<simxInt, simxInt>> vect;
 	int sizeVector = randSize(randomEngine) + 1;
