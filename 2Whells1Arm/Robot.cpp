@@ -2,8 +2,18 @@
 #include "Robot.h"
 #include <random>
 
-Robot::Robot()
-	: m_score(0), m_distance(0.0), m_selected(false), m_wrist(std::pair<simxInt, simxInt>(0, 0)), m_elbow(std::pair<simxInt, simxInt>(0, 0)), m_shoulder(std::pair<simxInt, simxInt>(0, 0))
+Robot::Robot(int _repetition)
+	: m_x(0), m_y(0), m_distance(0), m_score(0), m_proba(0), m_selected(false), m_repetition(_repetition)
+{
+}
+
+Robot::Robot(simxFloat _x, simxFloat _y)
+	: m_x(_x), m_y(_y), m_distance(0), m_score(0), m_proba(0), m_selected(false), m_repetition(0)
+{
+}
+
+Robot::Robot(simxFloat _x, simxFloat _y, int _repetition)
+	: m_x(_x), m_y(_y), m_distance(0), m_score(0), m_proba(0), m_selected(false), m_repetition(_repetition)
 {
 }
 
@@ -12,7 +22,7 @@ Robot::~Robot()
 }
 
 Robot::Robot(const Robot &obj)
-	: m_score(obj.m_score), m_distance(obj.m_distance), m_selected(obj.m_selected), m_wrist(obj.m_wrist), m_elbow(obj.m_elbow), m_shoulder(obj.m_shoulder)
+	: m_x(obj.getX()), m_y(obj.getY()), m_distance(obj.getDistance()), m_score(obj.getScore()), m_proba(obj.getProba()), m_selected(obj.isSelected()), m_repetition(obj.getRepetition()), m_cycle(obj.getCycle())
 {
 }
 
@@ -21,102 +31,74 @@ Robot& Robot::operator=(const Robot &obj)
 	this->m_score = obj.m_score;
 	this->m_distance = obj.m_distance;
 	this->m_selected = obj.m_selected;
-	this->m_wrist = obj.m_wrist;
-	this->m_elbow = obj.m_elbow;
-	this->m_shoulder = obj.m_shoulder;
+	this->m_cycle = obj.m_cycle;
 	return (*this);
+}
+
+void						Robot::setX(simxFloat _x)
+{
+	m_x = _x;
+}
+
+void						Robot::setY(simxFloat _y)
+{
+	m_y = _y;
+}
+
+void						Robot::setDistance(simxFloat _dist)
+{
+	m_distance = _dist;
+}
+
+void						Robot::setScore(int _score)
+{
+	m_score = _score;
+}
+
+void						Robot::setProba(float _proba)
+{
+	m_proba = _proba;
+}
+
+void						Robot::setSelect(bool _selected)
+{
+	m_selected = _selected;
+}
+
+void						Robot::setRepetition(int _repetition)
+{
+	m_repetition = _repetition;
+}
+
+bool						Robot::setStateCycle(unsigned int _state, unsigned int _motor, const std::pair<simxInt, simxInt> &_pair)
+{
+	if (m_cycle.size() > _state && _motor > 0 && _motor)
+	{
+		(m_cycle[_state])[_motor] = _pair;
+		return true;
+	}
+	return false;
+}
+
+void						Robot::setCycle(const std::vector<std::vector<std::pair<simxInt, simxInt>>> &_vector)
+{
+	m_cycle = _vector;
 }
 
 void Robot::randomise() {
 	static std::random_device rd;
 	static std::mt19937 randomEngine(rd());
 	static std::uniform_real_distribution<float> randX(-360.0f, 360.0f);
+	static std::uniform_real_distribution<unsigned int> randSize(MIN_CYCLE, MAX_CYCLE);
 
-	m_wrist.first = randX(randomEngine);
-	m_elbow.first  = randX(randomEngine);
-	m_shoulder.first = randX(randomEngine);
-
-	m_wrist.second = randX(randomEngine);
-	m_elbow.second = randX(randomEngine);
-	m_shoulder.second = randX(randomEngine);
-}
-
-void						Robot::setScore(int newScore)
-{
-	m_score = newScore;
-}
-
-void						Robot::setDistance(float newDist)
-{
-	m_distance = newDist;
-}
-
-void						Robot::select()
-{
-	m_selected = true;
-}
-
-void						Robot::resetSelection()
-{
-	m_selected = false;
-}
-
-void						Robot::setProba(float newProba)
-{
-	m_proba = newProba;
-}
-
-void						Robot::setPosX(double newX)
-{
-	m_x = newX;
-}
-
-void						Robot::setPosY(double newY)
-{
-	m_y = newY;
-}
-
-void						Robot::setWrist(const std::pair<simxInt, simxInt> &newWrist)
-{
-	m_wrist = newWrist;
-}
-
-void						Robot::setElbow(const std::pair<simxInt, simxInt> &newElbow)
-{
-	m_elbow = newElbow;
-}
-
-void						Robot::setShoulder(const std::pair<simxInt, simxInt> &newShoulder)
-{
-	m_shoulder = newShoulder;
-}
-
-void						Robot::setWristAmp(const simxInt &newElbowAmp)
-{
-	m_wrist.first = newElbowAmp;
-}
-
-void						Robot::setWristRot(const simxInt &newElbowRot)
-{
-	m_wrist.second = newElbowRot;
-}
-
-void						Robot::setElbowAmp(const simxInt &newElbowAmp)
-{
-	m_elbow.first = newElbowAmp;
-}
-
-void						Robot::setElbowRot(const simxInt &newElbowRot)
-{
-	m_elbow.second = newElbowRot;
-}
-
-void						Robot::setShoulderAmp(const simxInt &newShoulderAmp)
-{
-	m_shoulder.first = newShoulderAmp;
-}
-
-void						Robot::setShoulderRot(const simxInt &newShoulderRot)
-{
-	m_shoulder.second = newShoulderRot;
+	std::vector<std::pair<simxInt, simxInt>> vect;
+	int sizeVector = randSize(randomEngine) + 1;
+	for (int i = 0; i < sizeVector; ++i)
+	{
+		for (int j = 0; j < 3; ++j)
+		{
+			vect.push_back(std::make_pair(randX(randomEngine), randX(randomEngine)));
+		}
+		m_cycle.push_back(vect);
+	}
 }

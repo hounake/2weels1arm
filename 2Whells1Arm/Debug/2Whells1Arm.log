@@ -1,1 +1,94 @@
-﻿  2Whells1Arm.vcxproj -> D:\Epitech_Project\2weels1arm_2\Debug\2Whells1Arm.exe
+﻿  Robot.cpp
+c:\program files (x86)\microsoft visual studio 12.0\vc\include\random(3683): error C2338: invalid template argument for uniform_real_distribution
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.cpp(92) : see reference to class template instantiation 'std::uniform_real_distribution<unsigned int>' being compiled
+  AlgoGen.cpp
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(6): error C2248: 'Robot::Robot' : cannot access private member declared in class 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(26) : see declaration of 'Robot::Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(26) : see declaration of 'Robot::Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(26) : see declaration of 'Robot::Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(9): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(17): error C2248: 'Robot::Robot' : cannot access private member declared in class 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(26) : see declaration of 'Robot::Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(26) : see declaration of 'Robot::Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(26) : see declaration of 'Robot::Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(42): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(55): error C2039: 'select' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(78): error C2039: 'resetSelection' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(85): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(92): error C2039: 'setElbow' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(92): error C2039: 'getElbow' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(94): error C2039: 'setShoulder' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(94): error C2039: 'getShoulder' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(96): error C2039: 'setWrist' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(96): error C2039: 'getWrist' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(103): error C2039: 'setElbow' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(103): error C2039: 'getElbow' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(105): error C2039: 'setShoulder' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(105): error C2039: 'getShoulder' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(107): error C2039: 'setWrist' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(107): error C2039: 'getWrist' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(111): error C2039: 'setElbow' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(111): error C2039: 'getElbow' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(111): error C2228: left of '.first' must have class/struct/union
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(111): error C2228: left of '.second' must have class/struct/union
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(112): error C2039: 'setShoulder' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(112): error C2039: 'getShoulder' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(112): error C2228: left of '.first' must have class/struct/union
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(112): error C2228: left of '.second' must have class/struct/union
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(113): error C2039: 'setWrist' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(113): error C2039: 'getWrist' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(113): error C2228: left of '.first' must have class/struct/union
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(113): error C2228: left of '.second' must have class/struct/union
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(122): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(126): error C2248: 'Robot::Robot' : cannot access private member declared in class 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(26) : see declaration of 'Robot::Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(149): error C2039: 'getPosX' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(149): error C2039: 'getPosY' : is not a member of 'Robot'
+          d:\epitech_project\2weels1arm_2\2whells1arm\robot.h(16) : see declaration of 'Robot'
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(157): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+d:\epitech_project\2weels1arm_2\2whells1arm\algogen.cpp(162): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+  Compiling...
+  2Whells1Arm.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  Vrep.cpp
+  FileManager.cpp
+  App.cpp

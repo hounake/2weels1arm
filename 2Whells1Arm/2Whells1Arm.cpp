@@ -4,8 +4,8 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	//App app;
+	App app;
 
-	//app.run();
+	app.run();
 	return 0;
 }

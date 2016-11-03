@@ -1,5 +1,5 @@
-#pragma once
-
+//#pragma once
+//
 //#include <map>
 //#include <vector>
 //#include "Robot.h"
@@ -25,4 +25,4 @@
 //
 //	std::map<int, std::vector<Robot>> &		initGeneFromFile(int nbGene);
 //};
-
+//
