@@ -124,6 +124,7 @@ void AlgoGen::mutate()
 	if (mutationRand = 1)
 	{
 		m_child = Robot();
+		m_child.randomise();
 		//do mutation
 	}
 }
