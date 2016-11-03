@@ -7,6 +7,8 @@ using namespace std;
 using namespace boost;
 using namespace boost::filesystem;
 
+typedef tokenizer<escaped_list_separator<char> > boost_tok;
+
 FileManager::FileManager()
 	: _fileName("toto")
 {
@@ -46,14 +48,41 @@ void FileManager::createDir()
 	}
 }
 
-void FileManager::createGeneLog(std::map<int, std::vector<Robot>>& robots, int nbGene)
+void FileManager::logAGene(RobotGeneContainer& robots, int nbGene)
 {
-	path file_path(_fileName);
-	getFileGenePath(file_path, nbGene);
-	std::ofstream outfile(file_path.c_str());
+	createGeneLog(robots, nbGene);
+	writeTheLog(nbGene);
+}
 
-	//outfile << "on va manger des chips!" << std::endl;
-	outfile << "Gene " << nbGene
+void FileManager::logAllGenesInMultipleFiles(std::vector<RobotGeneContainer>& robotGenes)
+{
+	int i = 0;
+	for each (RobotGeneContainer gene in robotGenes)
+	{
+		logAGene(gene, i++);
+	}
+}
+
+void FileManager::logAllGenesInOneFile(std::vector<RobotGeneContainer>& robotGenes)
+{
+	int i = 0;
+	for each (RobotGeneContainer gene in robotGenes)
+	{
+		createGeneLog(gene, i++);
+	}
+	writeTheLog(0);//other name ?
+}
+
+RobotGeneContainer & FileManager::initAGene(int nbGene)
+{
+	readTheLog(nbGene);
+	return initGeneFromLog(nbGene);
+}
+
+void FileManager::createGeneLog(RobotGeneContainer& robots, int nbGene)
+{
+	//outstream << "on va manger des chips!" << std::endl;
+	outstream << "Gene " << nbGene
 		<< "," << "score"
 		<< "," << "distance"
 		<< "," << "isSelected"
@@ -68,11 +97,11 @@ void FileManager::createGeneLog(std::map<int, std::vector<Robot>>& robots, int n
 	int id = 0;
 	for each (auto robotPair in robots)
 	{
-		//outfile << robotPair.first
+		//outstream << robotPair.first
 		//	<< endl;
 		for each (Robot robot in robotPair.second)
 		{
-			outfile << id++
+			outstream << id++
 				<< "," << robot.getScore()
 				<< "," << robot.getDistance()
 				<< "," << robot.isSelected()
@@ -86,21 +115,36 @@ void FileManager::createGeneLog(std::map<int, std::vector<Robot>>& robots, int n
 		}
 	}
 
+	//outfile.close();
+}
+
+void FileManager::writeTheLog(int nbGene)
+{
+	path file_path(_fileName);
+	getFileGenePath(file_path, nbGene);
+	std::ofstream outfile(file_path.c_str());
+
+	outfile << outstream.str();
 	outfile.close();
 }
 
-typedef tokenizer<escaped_list_separator<char> > boost_tok;
-
-std::map<int, std::vector<Robot>> &		FileManager::initGeneFromFile(int nbGene)
+void FileManager::readTheLog(int nbGene)
 {
 	path file_path;
 	getFileGenePath(file_path, nbGene);
 	std::ifstream infile(file_path.c_str());
 
+	instream << infile.rdbuf();
+	infile.close();
+}
+
+RobotGeneContainer &		FileManager::initGeneFromLog(int nbGene)
+{
+
 	string s;//= "score,distance,selected,wrist,elbow,shoulder";
 	int totoScore = 0;//tmp, while we have a map instead of a vector
-	getline(infile, s);//skip first line with column titles
-	while (getline(infile, s))
+	getline(instream, s);//skip first line with column titles
+	while (getline(instream, s))
 	{
 		Robot robot;
 		if (!initRobotFromString(robot, s))
@@ -111,7 +155,7 @@ std::map<int, std::vector<Robot>> &		FileManager::initGeneFromFile(int nbGene)
 
 	}
 
-	infile.close();
+	//infile.close();
 
 	return _lastReadGene;
 }
@@ -130,18 +174,36 @@ bool	FileManager::initRobotFromString(Robot& robot, string const& datas)
 	}
 	else {
 		Robot robot;
-		int score = stoi(robot_datas[1]);
-		robot.setScore(score);
-		robot.setDistance(stof(robot_datas[2]));
+		try {
+			int score = stoi(robot_datas[1]);
+			robot.setScore(score);
+		}
+		catch (...) {
+			cout << "invalid score: " << robot_datas[1] << "\t";
+			return false;
+		}
+		try {
+			robot.setDistance(stof(robot_datas[2]));
+		}
+		catch (...) {
+			cout << "invalid distance: " << robot_datas[2] << "\t";
+			return false;
+		}
 		if (robot_datas[3] == "1") {
 			robot.select();
 		}
 		else {
 			robot.resetSelection();
 		}
-		robot.setWrist(pair<simxInt, simxInt>(stoi(robot_datas[4]), stoi(robot_datas[5])));
-		robot.setElbow(pair<simxInt, simxInt>(stoi(robot_datas[6]), stoi(robot_datas[7])));
-		robot.setShoulder(pair<simxInt, simxInt>(stoi(robot_datas[8]), stoi(robot_datas[9])));
+		try {
+			robot.setWrist(pair<simxInt, simxInt>(stoi(robot_datas[4]), stoi(robot_datas[5])));
+			robot.setElbow(pair<simxInt, simxInt>(stoi(robot_datas[6]), stoi(robot_datas[7])));
+			robot.setShoulder(pair<simxInt, simxInt>(stoi(robot_datas[8]), stoi(robot_datas[9])));
+		}
+		catch (...) {
+			cout << "invalid wrist/elbow/shoulder... " << "\t";
+			return false;
+		}
 	}
 	return true;
 }
