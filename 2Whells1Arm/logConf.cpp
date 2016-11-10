@@ -1,57 +1,51 @@
 #include "stdafx.h"
 #include "logConf.h"
+#include "ToolBox.h"
 
-LogConf::LogConf()
-{
+#include <fstream>
+
+void LogConf::init(const std::string &fileName) {
+	std::ifstream file;
+	file.open(fileName);
+
+	// Error checking
+	if (file.fail()) {
+		throw std::string("Error: failed to open " + fileName);
+	}
+
+	// Read the config file
+	std::string record;
+	std::string dataName;
+	while (std::getline(file, record))
+	{
+		if (record.front() == '#')
+		{ // Do nothing
+		}
+		else if (record.back() == ':')
+		{ // Enable the dataName
+			record.pop_back();
+			dataName = record;
+		}
+		else // push the value to the apropriate data
+		{
+			if (dataName == "finalGeneration")
+			{
+				m_finalGeneration = Convert::toInt(record);
+			}
+			else if (dataName == "generationSize")
+			{
+				m_generationSize = Convert::toInt(record);
+			}
+			else if (dataName == "robotActionNumber")
+			{
+				m_robotActionNumber = Convert::toInt(record);
+			}
+			else if (dataName == "robotSequenceNumber")
+			{
+				m_robotSequenceNumber = Convert::toInt(record);
+			}
+
+		}
+	}
+	file.close();
 }
-
-LogConf::~LogConf()
-{
-}
-
-int	LogConf::getMaxGene() const
-{
-	return this->maxGene;
-}
-
-int	LogConf::getSizeGene() const
-{
-	return this->sizeGene;
-}
-
-int	LogConf::getNbAction() const
-{
-	return this->nbAction;
-}
-
-void LogConf::setMaxGene(const int newMax)
-{
-	this->maxGene = newMax;
-}
-
-void LogConf::setSizeGene(const int newSize)
-{
-	this->sizeGene = newSize;
-}
-
-void LogConf::setNbAction(const int newNb)
-{
-	this->nbAction = newNb;
-}
-
-
-//std::ostream& LogConf::operator<<(std::ostream& os, const LogConf& obj)
-//{
-//	os << obj.getMaxGene() << std::endl
-//		<< obj.getSizeGene() << std::endl
-//		<< obj.getNbAction() << std::endl;
-//	return os;
-//}
-
-//std::istream& LogConf::operator>>(std::istream& is, LogConf& obj)
-//{
-//	// read obj from stream
-//	if ( /* T could not be constructed */)
-//		is.setstate(std::ios::failbit);
-//	return is;
-//}

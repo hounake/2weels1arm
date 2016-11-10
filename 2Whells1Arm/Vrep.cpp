@@ -14,7 +14,6 @@ Vrep::~Vrep()
 
 void Vrep::start(){
 	simxStartSimulation(m_client, simx_opmode_oneshot_wait);
-	simxGetObjectPosition(m_client, m_robotHandle, -1, &m_startPos[0], simx_opmode_streaming);
 }
 
 void Vrep::stop(){
@@ -37,28 +36,31 @@ void Vrep::init(){
 	simxGetObjectHandle(m_client, "ShoulderMotor", &m_shoulderHandle, simx_opmode_oneshot_wait);
 	simxGetObjectHandle(m_client, "2W1A", &m_robotHandle, simx_opmode_oneshot_wait);
 	
+	simxGetObjectPosition(m_client, m_robotHandle, -1, &m_startPos[0], simx_opmode_streaming);
 }
 
-float Vrep::calculDistance(){
+double Vrep::calculDistance() const {
+	// using pythagore (Two Dimensional Distance Calculator)
+	double distance = 0;
 
-	float distance = 0;
+	double x = m_endPos[0] - m_startPos[0];
+	double y = m_endPos[1] - m_startPos[1];
 
-
+	distance = sqrt((x*x) + (y*y));
 
 	return distance;
 }
 
-void Vrep::execRobot(Robot &robot){
+void Vrep::execRobot(Robot &robot, size_t maxSequence){
 
-	auto opmode = simx_opmode_oneshot_wait;
+	//auto opmode = simx_opmode_oneshot_wait;
+	auto opmode = simx_opmode_streaming;
 
 	start();
 
 	std::vector<Action*> actions = robot.getAction();
 
-
-
-	for (size_t sequence = 0; sequence < 6; sequence++)	//TODO :  multiple iteration for sequencial test
+	for (size_t sequence = 0; sequence < maxSequence; sequence++)	//TODO :  multiple iteration for sequencial test
 	{
 		for (size_t i = 0; i < actions.size(); i++)
 		{
@@ -76,6 +78,5 @@ void Vrep::execRobot(Robot &robot){
 
 	stop();
 
-	robot.setPosX(m_endPos[0]);
-	robot.setPosY(m_endPos[1]);
+	robot.setDistance(calculDistance());
 }

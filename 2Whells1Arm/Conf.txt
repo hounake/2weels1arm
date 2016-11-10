@@ -1,0 +1,8 @@
+finalGeneration:
+10
+generationSize:
+2
+robotActionNumber:
+2
+robotSequenceNumber:
+2

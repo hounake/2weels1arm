@@ -16,119 +16,53 @@ void Action::randomise() {
 	shoulder.second = randX(randomEngine);
 }
 
+Action::Action(const Action &toCopy) {
+	wrist.first = toCopy.wrist.first;
+	elbow.first = toCopy.elbow.first;
+	shoulder.first = toCopy.shoulder.first;
+
+	wrist.second = toCopy.wrist.second;
+	elbow.second = toCopy.elbow.second;
+	shoulder.second = toCopy.shoulder.second;
+}
+
 Robot::Robot()
-{ // Empty
+{
 }
 
 Robot::~Robot()
 {
 	for (size_t i = 0; i < m_actions.size(); i++)
 	{
-		delete m_actions[i];
+		delete m_actions.at(i);
 	}
+	//delete m_actions;
 }
 
 Robot::Robot(const Robot &obj)
 //	: m_score(obj.m_score), m_distance(obj.m_distance), m_selected(obj.m_selected), m_wrist(obj.m_wrist), m_elbow(obj.m_elbow), m_shoulder(obj.m_shoulder)
 {
 }
+//
+//Robot& Robot::operator=(const Robot &obj)
+//{
+//	this->m_score = obj.m_score;
+//	this->m_distance = obj.m_distance;
+//	//this->m_selected = obj.m_selected;
+//	//this->m_wrist = obj.m_wrist;
+//	//this->m_elbow = obj.m_elbow;
+//	//this->m_shoulder = obj.m_shoulder;
+//	return (*this);
+//}
 
-Robot& Robot::operator=(const Robot &obj)
-{
-	this->m_score = obj.m_score;
-	this->m_distance = obj.m_distance;
-	this->m_selected = obj.m_selected;
-	//this->m_wrist = obj.m_wrist;
-	//this->m_elbow = obj.m_elbow;
-	//this->m_shoulder = obj.m_shoulder;
-	return (*this);
-}
-
-void Robot::randomise() {
-	for (size_t i = 0; i < NBACTION; i++)
+void Robot::randomise(int actionNumber) {
+	for (size_t i = 0; i < actionNumber; i++)
 	{
 		m_actions.emplace_back(new Action{});
 		m_actions.back()->randomise();
 	}
 }
 
-void						Robot::setScore(int newScore)
-{
-	m_score = newScore;
+void Robot::addAction(Action action) {
+	m_actions.emplace_back(new Action{action});
 }
-
-void						Robot::setDistance(float newDist)
-{
-	m_distance = newDist;
-}
-
-void						Robot::select()
-{
-	m_selected = true;
-}
-
-void						Robot::resetSelection()
-{
-	m_selected = false;
-}
-//
-//void						Robot::setProba(float newProba)
-//{
-//	m_proba = newProba;
-//}
-
-void						Robot::setPosX(double newX)
-{
-	m_posX = newX;
-}
-
-void						Robot::setPosY(double newY)
-{
-	m_posY = newY;
-}
-
-//
-//void						Robot::setWrist(const std::pair<simxInt, simxInt> &newWrist)
-//{
-//	m_wrist = newWrist;
-//}
-//
-//void						Robot::setElbow(const std::pair<simxInt, simxInt> &newElbow)
-//{
-//	m_elbow = newElbow;
-//}
-//
-//void						Robot::setShoulder(const std::pair<simxInt, simxInt> &newShoulder)
-//{
-//	m_shoulder = newShoulder;
-//}
-//
-//void						Robot::setWristAmp(const simxInt &newElbowAmp)
-//{
-//	m_wrist.first = newElbowAmp;
-//}
-//
-//void						Robot::setWristRot(const simxInt &newElbowRot)
-//{
-//	m_wrist.second = newElbowRot;
-//}
-//
-//void						Robot::setElbowAmp(const simxInt &newElbowAmp)
-//{
-//	m_elbow.first = newElbowAmp;
-//}
-//
-//void						Robot::setElbowRot(const simxInt &newElbowRot)
-//{
-//	m_elbow.second = newElbowRot;
-//}
-//
-//void						Robot::setShoulderAmp(const simxInt &newShoulderAmp)
-//{
-//	m_shoulder.first = newShoulderAmp;
-//}
-//
-//void						Robot::setShoulderRot(const simxInt &newShoulderRot)
-//{
-//	m_shoulder.second = newShoulderRot;
-//}

@@ -4,22 +4,22 @@
 #include <string>
 #include <sstream>
 
+static const std::string CONFNAME = "Conf.txt";
+
 class LogConf {
-	int maxGene;
-	int sizeGene;
-	int nbAction;
+	size_t m_finalGeneration;
+	size_t m_generationSize;
+	size_t m_robotActionNumber;
+	size_t m_robotSequenceNumber;
 
 public:
-	LogConf();
-	~LogConf();
+	LogConf() {}
+	~LogConf() {}
 
-	int	getMaxGene() const;
-	int	getSizeGene() const;
-	int	getNbAction() const;
+	void init(const std::string &fileName);
 
-	void setMaxGene(const int);
-	void setSizeGene(const int);
-	void setNbAction(const int);
-	//std::ostream& LogConf::operator<<(std::ostream&, const LogConf&)
-	//std::istream operator>>(std::istream&, LogConf&);
+	size_t	getFinalGeneration() const { return m_finalGeneration; }
+	size_t	getGenerationSize() const { return m_generationSize; }
+	size_t	getRobotActionNumber() const { return m_robotActionNumber; }
+	size_t getRobotSequenceNumber() const { return m_robotSequenceNumber; }
 };

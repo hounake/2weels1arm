@@ -22,12 +22,12 @@ class Vrep
 
 	void start();
 	void stop();
-	float calculDistance();
+	double calculDistance() const;
 public:
 	Vrep();
 	~Vrep();
 
 	void init();
-	void execRobot(Robot &robot);
+	void execRobot(Robot &robot, size_t maxSequence);
 };
 
