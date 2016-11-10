@@ -31,8 +31,8 @@ void App::init(){
 
 	//m_fileManager.createGeneLog(totoMap, 0);
 
-	auto gene = m_fileManager.initGeneFromFile(0);
-	m_fileManager.createGeneLog(gene, 0);//test by recreating file
+	auto gene = m_fileManager.initAGene(0);
+	m_fileManager.logAGene(gene, 0);//test by recreating file
 }
 
 void App::run(){
