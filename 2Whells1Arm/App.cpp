@@ -69,9 +69,10 @@ void App::run(){
 			m_vrepManager.execRobot(*robot, m_conf.getRobotSequenceNumber(), m_conf.isRobotExist());
 		}
 		m_algoGen.selection(m_robots);
-		m_algoGen.mating(m_robots);
-		m_algoGen.mutate();
+		m_algoGen.mating(m_robots, m_conf.getElitismNumber());
+		m_algoGen.mutate(m_robots, m_conf.getElitismNumber());
 		m_loggManager.writeLine("Generation: " + std::to_string(m_currentGen));
+
 		double ratio = 0;
 		for each (auto robot in m_robots)
 		{
@@ -89,7 +90,7 @@ void App::run(){
 			ratio += robot->getScore();
 			delete robot;
 		}
-		m_loggManager.writeCsvLine(std::to_string(m_currentGen) + ";" + std::to_string(ratio));
+		m_loggManager.writeCsvLine(std::to_string(m_currentGen) + ";" + std::to_string(m_robots[0]->getScore()) + ";" + std::to_string(ratio / m_conf.getGenerationSize()));
 
 		m_robots.clear();
 		m_robots = m_algoGen.getNewGene();

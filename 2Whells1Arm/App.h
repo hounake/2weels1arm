@@ -24,8 +24,6 @@ class App
 	std::vector<Robot*> m_robots;
 	int m_currentGen = 0;
 	simxInt RoboHandle;
-
-	void m_initFromNothing();
 public:
 	App();
 	~App();

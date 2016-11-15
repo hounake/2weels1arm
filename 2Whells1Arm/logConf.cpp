@@ -81,6 +81,9 @@ void LogConf::init(const std::string &fileName) {
 			{
 				m_robotSequenceNumber = Convert::toInt(record);
 			}
+			else if (dataName == "elitismNumber") {
+				m_elitismNumber = Convert::toInt(record);
+			}
 			else if (dataName == "robot") {
 				m_robotBuilder(record);
 				m_robotExist = true;

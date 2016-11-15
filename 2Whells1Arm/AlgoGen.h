@@ -30,9 +30,9 @@ public:
 
 	void selection(std::vector<Robot*> &robots);
 
-	void mating(std::vector<Robot*> &robots);
+	void mating(std::vector<Robot*> &robots, int elitismNumber);
 
-	void mutate();
+	void mutate(std::vector<Robot*> &robots, int elitismNumber);
 
 	std::vector<Robot*> &getNewGene(); // insert
 };

@@ -34,20 +34,21 @@ void AlgoGen::selection(std::vector<Robot*> &robots)
 	std::sort(robots.begin(), robots.end(), [](Robot* a, Robot* b) { return (a->getScore() > b->getScore()); });
 }
 
-void AlgoGen::mating(std::vector<Robot*> &robots)
+void AlgoGen::mating(std::vector<Robot*> &robots, int elitismNumber)
 {
 	static std::random_device rd;
 	static std::mt19937 randomEngine(rd());
 	static std::uniform_real_distribution<double> randX(0.0f, 1.0f);
 	m_newRobots.clear();
 
-	for (size_t i = 0; i < robots.size(); i++)
+	for (size_t i = 0; i < robots.size() - 1 - elitismNumber; i++)
 	{
 		Robot *Parent1 = nullptr;
 		Robot *Parent2 = nullptr;
 
 		double number = randX(randomEngine);//Random between 0 and 1 for parent1
-		for (size_t j = 1; j < robots.size(); j++)
+		size_t j = 1;
+		for (; j < robots.size(); j++)
 		{
 			if (number > robots[j]->getProbability())
 			{
@@ -57,11 +58,11 @@ void AlgoGen::mating(std::vector<Robot*> &robots)
 		}
 
 		number = randX(randomEngine);//Random between 0 and 1 for parent2
-		for (size_t j = 1; j < robots.size(); j++)
+		for (size_t s = 1; s < robots.size(); s++)
 		{
-			if (number > robots[j]->getProbability())
+			if (number > robots[s]->getProbability() && s != j)
 			{
-				Parent2 = robots[j - 1];
+				Parent2 = robots[s - 1];
 				break;
 			}
 		}
@@ -74,9 +75,15 @@ void AlgoGen::mating(std::vector<Robot*> &robots)
 	}
 }
 
-void AlgoGen::mutate()
+void AlgoGen::mutate(std::vector<Robot*> &robots, int elitismNumber)
 {
+	for (size_t i = 0; i < elitismNumber; i++)
+	{
+		m_newRobots.emplace_back(robots[i]);
+	}
 
+	m_newRobots.emplace_back(new Robot{});
+	m_newRobots.back()->randomise(m_newRobots[0]->getAction().size());
 }
 
 std::vector<Robot*> &AlgoGen::getNewGene()

@@ -14,6 +14,7 @@ class LogConf {
 	size_t m_generationSize = 0;
 	size_t m_robotActionNumber = 0;
 	size_t m_robotSequenceNumber = 0;
+	size_t m_elitismNumber = 0;
 	//Robot m_robot;
 	std::vector<Action> m_actions;
 	bool m_robotExist = false;
@@ -29,6 +30,7 @@ public:
 	size_t	getGenerationSize() const { return m_generationSize; }
 	size_t	getRobotActionNumber() const { return m_robotActionNumber; }
 	size_t	getRobotSequenceNumber() const { return m_robotSequenceNumber; }
+	size_t	getElitismNumber() const { return m_elitismNumber; }
 	bool	isRobotExist() const { return m_robotExist; }
 	const std::vector<Action> &getAction() const { return m_actions; }
 	
