@@ -1,28 +1,13 @@
 #pragma once
 
-#include <utility>
 #include <vector>
 
 #include "LogConf.h"
+#include "RobotAction.h"
 
 extern "C" {
 #include "extApi.h"
 }
-
-//const int NBACTION = 4; // TODO : add it to conf fille
-
-class Action
-{
-public:
-	std::pair<simxInt, simxInt>	wrist = std::pair<simxInt, simxInt>(0, 0);
-	std::pair<simxInt, simxInt>	elbow = std::pair<simxInt, simxInt>(0, 0);
-	std::pair<simxInt, simxInt>	shoulder = std::pair<simxInt, simxInt>(0, 0);
-
-	Action() {};
-	Action(const Action &toCopy);
-
-	void randomise();
-};
 
 class Robot
 {
@@ -34,7 +19,7 @@ class Robot
 public:
 	Robot();
 	~Robot();
-	Robot(const Robot&);
+	//Robot(const Robot&);
 
 	void randomise(int actionNumber);
 
@@ -47,21 +32,6 @@ public:
 	void						setDistance(double dist) { m_distance = dist; }
 	void						setProbability(double proba) { m_proba = proba; }
 	void						addAction(Action action);
-	//void						setActions(const std::vector<Action*> &actions) const { *m_actions = actions; }
-
-
-	//bool operator==(const Robot& rob) {
-	//	if (getScore() != rob.getScore())
-	//		return false;
-	//	if (getDistance() != rob.getDistance())
-	//		return false;
-	//	if (getProbability() != rob.getProbability())
-	//		return false;
-	//	return true;
-	//}
-
-	//bool operator!=(const Robot& rob) {
-	//	return !(*this == rob);
-	//}
 };
+
 

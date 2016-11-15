@@ -51,10 +51,11 @@ double Vrep::calculDistance() const {
 	return distance;
 }
 
-void Vrep::execRobot(Robot &robot, size_t maxSequence){
+void Vrep::execRobot(Robot &robot, size_t maxSequence, bool visual){
 
-	//auto opmode = simx_opmode_oneshot_wait;
 	auto opmode = simx_opmode_streaming;
+	if (visual == true)
+		opmode = simx_opmode_oneshot_wait;
 
 	start();
 

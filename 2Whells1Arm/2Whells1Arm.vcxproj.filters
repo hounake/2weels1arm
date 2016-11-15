@@ -51,6 +51,9 @@
     <ClInclude Include="ToolBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RobotAction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -82,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="..\remoteApi\extApiPlatform.c">
       <Filter>Source Files\extApi</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotAction.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

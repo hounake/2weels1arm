@@ -16,7 +16,7 @@ extern "C" {
 
 class App
 {
-//	FileManager m_fileManager;
+	Logger m_loggManager;
 	AlgoGen m_algoGen;
 	Vrep m_vrepManager;
 	LogConf m_conf;
