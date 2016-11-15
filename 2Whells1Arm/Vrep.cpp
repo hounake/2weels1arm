@@ -22,7 +22,7 @@ void Vrep::stop(){
 	extApi_sleepMs(200);
 }
 
-void Vrep::init(){
+void Vrep::init(bool visual){
 	m_client = simxStart((simxChar*)"127.0.0.1", m_port, true, true, 2000, 5);
 	if (m_client == -1)
 	{
@@ -37,6 +37,11 @@ void Vrep::init(){
 	simxGetObjectHandle(m_client, "2W1A", &m_robotHandle, simx_opmode_oneshot_wait);
 	
 	simxGetObjectPosition(m_client, m_robotHandle, -1, &m_startPos[0], simx_opmode_streaming);
+
+	//auto opmode = simx_opmode_streaming;
+	if (visual == false)
+		simxSetBooleanParameter(m_client, sim_boolparam_display_enabled, false, simx_opmode_streaming);
+
 }
 
 double Vrep::calculDistance() const {
@@ -51,11 +56,8 @@ double Vrep::calculDistance() const {
 	return distance;
 }
 
-void Vrep::execRobot(Robot &robot, size_t maxSequence, bool visual){
-
-	auto opmode = simx_opmode_streaming;
-	if (visual == true)
-		opmode = simx_opmode_oneshot_wait;
+void Vrep::execRobot(Robot &robot, size_t maxSequence){
+	auto opmode = simx_opmode_oneshot_wait;
 
 	start();
 

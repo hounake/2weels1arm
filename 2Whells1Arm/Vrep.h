@@ -27,7 +27,7 @@ public:
 	Vrep();
 	~Vrep();
 
-	void init();
-	void execRobot(Robot &robot, size_t maxSequence, bool visual);
+	void init(bool visual);
+	void execRobot(Robot &robot, size_t maxSequence);
 };
 

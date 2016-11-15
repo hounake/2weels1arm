@@ -12,8 +12,6 @@ extern "C" {
 #include "extApi.h"
 }
 
-//const int PPLPERGENERATION = 100;
-
 class App
 {
 	Logger m_loggManager;

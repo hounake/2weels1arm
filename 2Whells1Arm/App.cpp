@@ -29,7 +29,7 @@ void App::init(){
 		std::cout << "Configuration initialisation : done." << std::endl;
 
 		std::cout << "Vrep initialisation." << std::endl;
-		m_vrepManager.init();
+		m_vrepManager.init(m_conf.isRobotExist());
 		std::cout << "Vrep initialisation : done." << std::endl;
 
 		std::cout << "Robots initialisation." << std::endl;
@@ -66,7 +66,7 @@ void App::run(){
 	{
 		for each (auto robot in m_robots)
 		{
-			m_vrepManager.execRobot(*robot, m_conf.getRobotSequenceNumber(), m_conf.isRobotExist());
+			m_vrepManager.execRobot(*robot, m_conf.getRobotSequenceNumber());
 		}
 		m_algoGen.selection(m_robots);
 		m_algoGen.mating(m_robots, m_conf.getElitismNumber());
@@ -74,6 +74,7 @@ void App::run(){
 		m_loggManager.writeLine("Generation: " + std::to_string(m_currentGen));
 
 		double ratio = 0;
+		double best = m_robots[0]->getScore();
 		for each (auto robot in m_robots)
 		{
 			std::ostringstream loggline;
@@ -88,9 +89,11 @@ void App::run(){
 			}
 			m_loggManager.writeLine(loggline.str());
 			ratio += robot->getScore();
+			std::cout << robot->getScore() << ';';
 			delete robot;
 		}
-		m_loggManager.writeCsvLine(std::to_string(m_currentGen) + ";" + std::to_string(m_robots[0]->getScore()) + ";" + std::to_string(ratio / m_conf.getGenerationSize()));
+		std::cout << std::endl;
+		m_loggManager.writeCsvLine(std::to_string(m_currentGen) + ";" + std::to_string(best) + ";" + std::to_string(ratio / m_conf.getGenerationSize()));
 
 		m_robots.clear();
 		m_robots = m_algoGen.getNewGene();

@@ -41,7 +41,7 @@ void AlgoGen::mating(std::vector<Robot*> &robots, int elitismNumber)
 	static std::uniform_real_distribution<double> randX(0.0f, 1.0f);
 	m_newRobots.clear();
 
-	for (size_t i = 0; i < robots.size() - 1 - elitismNumber; i++)
+	for (size_t i = 0; i < (robots.size() - 1 - elitismNumber)/2; i++)
 	{
 		Robot *Parent1 = nullptr;
 		Robot *Parent2 = nullptr;
@@ -79,7 +79,13 @@ void AlgoGen::mutate(std::vector<Robot*> &robots, int elitismNumber)
 {
 	for (size_t i = 0; i < elitismNumber; i++)
 	{
-		m_newRobots.emplace_back(robots[i]);
+		Robot *rob = new Robot{};
+
+		for each (auto action in robots[i]->getAction())
+		{
+			rob->addAction(*action);
+		}
+		m_newRobots.emplace_back(rob);
 	}
 
 	m_newRobots.emplace_back(new Robot{});
@@ -96,18 +102,24 @@ void AlgoGen::createOffspring(const Robot &Parent1,const Robot &Parent2) {
 	static std::mt19937 randomEngine(rd());
 	static std::uniform_real_distribution<double> randX(0.0f, 1.0f);
 
-	Robot *offspring = new Robot {};
-	
-	std::vector<Action*> offspringActions;// = new std::vector<Action*>{};
+	Robot *offspringA = new Robot {};
+	Robot *offspringB = new Robot {};
 
 	for (size_t i = 0; i < Parent1.getAction().size(); i++)
 	{
 		double random = randX(randomEngine); // random 0/1
 		if (random >= 0.5)
-			offspring->addAction(*Parent1.getAction()[i]);
+		{
+			offspringA->addAction(*Parent1.getAction()[i]);
+			offspringB->addAction(*Parent2.getAction()[i]);
+		}
 		else
-			offspring->addAction(*Parent2.getAction()[i]);
+		{
+			offspringB->addAction(*Parent1.getAction()[i]);
+			offspringA->addAction(*Parent2.getAction()[i]);
+		}
 	}
 
-	m_newRobots.push_back(offspring);
+	m_newRobots.push_back(offspringA);
+	m_newRobots.push_back(offspringB);
 }
