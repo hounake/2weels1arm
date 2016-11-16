@@ -75,6 +75,8 @@ void App::run(){
 
 		double ratio = 0;
 		double best = m_robots[0]->getScore();
+		double median = m_robots[m_conf.getGenerationSize()/2]->getScore();
+
 		for each (auto robot in m_robots)
 		{
 			std::ostringstream loggline;
@@ -89,11 +91,11 @@ void App::run(){
 			}
 			m_loggManager.writeLine(loggline.str());
 			ratio += robot->getScore();
-			std::cout << robot->getScore() << ';';
+			//std::cout << robot->getScore() << ';';
 			delete robot;
 		}
-		std::cout << std::endl;
-		m_loggManager.writeCsvLine(std::to_string(m_currentGen) + ";" + std::to_string(best) + ";" + std::to_string(ratio / m_conf.getGenerationSize()));
+		//std::cout << std::endl;
+		m_loggManager.writeCsvLine(std::to_string(m_currentGen) + ";" + std::to_string(best) + ";" + std::to_string(ratio / m_conf.getGenerationSize()) + ";" + std::to_string(median));
 
 		m_robots.clear();
 		m_robots = m_algoGen.getNewGene();

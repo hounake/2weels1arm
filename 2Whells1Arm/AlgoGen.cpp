@@ -85,6 +85,8 @@ void AlgoGen::mutate(std::vector<Robot*> &robots, int elitismNumber)
 		{
 			rob->addAction(*action);
 		}
+		rob->setScore(robots[i]->getScore());
+		rob->setDistance(robots[i]->getDistance());
 		m_newRobots.emplace_back(rob);
 	}
 

@@ -14,12 +14,13 @@ Vrep::~Vrep()
 
 void Vrep::start(){
 	simxStartSimulation(m_client, simx_opmode_oneshot_wait);
+	simxSetIntegerParameter(m_client, sim_intparam_speedmodifier, 64, simx_opmode_oneshot_wait);
 }
 
 void Vrep::stop(){
 	simxGetObjectPosition(m_client, m_robotHandle, -1, &m_endPos[0], simx_opmode_streaming);
 	simxStopSimulation(m_client, simx_opmode_oneshot_wait);
-	extApi_sleepMs(200);
+	extApi_sleepMs(100);
 }
 
 void Vrep::init(bool visual){
@@ -57,6 +58,8 @@ double Vrep::calculDistance() const {
 }
 
 void Vrep::execRobot(Robot &robot, size_t maxSequence){
+	if (robot.getScore() != 0)
+		return;
 	auto opmode = simx_opmode_oneshot_wait;
 
 	start();
